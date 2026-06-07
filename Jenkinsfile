@@ -37,32 +37,32 @@ pipeline {
             }
         }
 
-        stage('Build Docker Images') {
-            steps {
-                bat '''
-                    docker build -t java-app:local java-app
-                    docker build -t python-app:local python-app
-                '''
-            }
-        }
+        // stage('Build Docker Images') {
+        //     steps {
+        //         bat '''
+        //             docker build -t java-app:local java-app
+        //             docker build -t python-app:local python-app
+        //         '''
+        //     }
+        // }
 
-        stage('Run Docker Compose') {
-            steps {
-                bat '''
-                    docker compose up -d
-                    docker ps
-                '''
-            }
-        }
+        // stage('Run Docker Compose') {
+        //     steps {
+        //         bat '''
+        //             docker compose up -d
+        //             docker ps
+        //         '''
+        //     }
+        // }
 
-        stage('Verify Services') {
-            steps {
-                bat '''
-                    curl --fail http://localhost:8000 || echo "Python app not responding"
-                    curl --fail http://localhost:9090 || echo "Java app not responding"
-                '''
-            }
-        }
+        // stage('Verify Services') {
+        //     steps {
+        //         bat '''
+        //             curl --fail http://localhost:8000 || echo "Python app not responding"
+        //             curl --fail http://localhost:9090 || echo "Java app not responding"
+        //         '''
+        //     }
+        // }
 
         // Optional Terraform validation stage
         // stage('Terraform Validate') {
