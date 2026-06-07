@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python HTML Sample App</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 50px auto; padding: 20px; line-height: 1.6; }
+        input[type="text"] { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; box-sizing: border-box; }
+        input[type="submit"] { background-color: #4CAF50; color: white; border: none; padding: 10px 15px; cursor: pointer; width: 100%; }
+        .result-box { background-color: #e7f3fe; border-left: 6px solid #2196F3; margin-top: 20px; padding: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Interactive Python + HTML App</h2>
+    
+    <!-- Form pointing directly back to our Python backend route -->
+    <form method="POST" action="/">
+        <label for="username">Enter your name:</label>
+        <input type="text" id="username" name="username" placeholder="Type here..." required>
+        <input type="submit" value="Submit to Python Backend">
+    </form>
+
+    <!-- Conditionally render the message if Python passes it back -->
+    {% if greeting_message %}
+        <div class="result-box">
+            {{ greeting_message }}
+        </div>
+    {% endif %}
+
+</body>
+</html>
