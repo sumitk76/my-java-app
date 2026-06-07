@@ -7,8 +7,8 @@ pipeline {
         ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION = "true"
     }
      tools {
-        maven 'Maven_3.9'
-        jdk 'JDK_17'
+        maven 'MAVEN3'
+        jdk 'jdk-21'
     }
 
     stages {
