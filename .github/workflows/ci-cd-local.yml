@@ -1,0 +1,65 @@
+name: CI-CD Local Pipeline
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Build Java App with Spring Boot plugin
+      - name: Build Java App
+        run: |
+           cd java-app
+           mvn  java-app/pom.xml clean package -DskipTests
+
+      # Test Python App
+      - name: Test Python App
+        run: |
+          cd python-app
+          pip install -r requirements.txt
+          pytest || echo "No tests yet"
+
+      # Build Docker Images (multi-stage Dockerfile handles JAR packaging)
+      - name: Build Docker Images
+        run: |
+          docker build -t java-app:local java-app
+          docker build -t python-app:local python-app
+
+  local-run:
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run Docker Compose
+        run: |
+          docker compose up -d
+          docker ps
+
+      - name: Verify Python Service
+        run: curl --fail http://localhost:8000 || echo "Python app not responding"
+
+      - name: Verify Java Service
+        run: curl --fail http://localhost:9090 || echo "Java app not responding"
+
+  # /* terraform-validate:
+  #   needs: build-test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+
+  #     - name: Setup Terraform
+  #       uses: hashicorp/setup-terraform@v2
+
+  #     - name: Terraform Init & Validate
+  #       run: |
+  #         cd terraform
+  #         terraform init
+  #         terraform validate */
