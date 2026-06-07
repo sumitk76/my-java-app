@@ -45,12 +45,12 @@ pipeline {
             }
         }
 
-        stage('Verify Services') {
-            steps {
-                bat 'curl --fail http://localhost:8000 || echo Python app not responding'
-                bat 'curl --fail http://localhost:9090 || echo Java app not responding'
-            }
-        }
+        // stage('Verify Services') {
+        //     steps {
+        //         bat 'curl --fail http://localhost:8000 || echo Python app not responding'
+        //         bat 'curl --fail http://localhost:9090 || echo Java app not responding'
+        //     }
+        // }
 
         // stage('Terraform Validate') {
         //     when {
