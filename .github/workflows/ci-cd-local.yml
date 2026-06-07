@@ -17,7 +17,7 @@ jobs:
       - name: Build Java App
         run: |
            cd java-app
-           mvn  java-app/pom.xml clean package -DskipTests
+           mvn -f java-app/pom.xml clean package -DskipTests
 
       # Test Python App
       - name: Test Python App
