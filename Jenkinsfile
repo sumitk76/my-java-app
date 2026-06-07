@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build Java App') {
             steps {
-                sh '''
+                bat '''
                     cd java-app
                     mvn clean package -DskipTests
                 '''
@@ -29,7 +29,7 @@ pipeline {
 
         stage('Test Python App') {
             steps {
-                sh '''
+                bat '''
                     cd python-app
                     pip install -r requirements.txt
                     pytest || echo "No tests yet"
@@ -39,7 +39,7 @@ pipeline {
 
         stage('Build Docker Images') {
             steps {
-                sh '''
+                bat '''
                     docker build -t java-app:local java-app
                     docker build -t python-app:local python-app
                 '''
@@ -48,7 +48,7 @@ pipeline {
 
         stage('Run Docker Compose') {
             steps {
-                sh '''
+                bat '''
                     docker compose up -d
                     docker ps
                 '''
@@ -57,7 +57,7 @@ pipeline {
 
         stage('Verify Services') {
             steps {
-                sh '''
+                bat '''
                     curl --fail http://localhost:8000 || echo "Python app not responding"
                     curl --fail http://localhost:9090 || echo "Java app not responding"
                 '''
