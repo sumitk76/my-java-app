@@ -6,6 +6,10 @@ pipeline {
         FORCE_JAVASCRIPT_ACTIONS_TO_NODE24 = "true"
         ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION = "true"
     }
+     tools {
+        maven 'Maven_3.9'
+        jdk 'JDK_17'
+    }
 
     stages {
         stage('Checkout') {
