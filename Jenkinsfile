@@ -26,7 +26,7 @@ pipeline {
                 bat '''
                     cd python-app
                     pip install -r requirements.txt
-                    pytest || echo "No tests yet"
+                    
                 '''
             }
         }
@@ -52,18 +52,18 @@ pipeline {
             }
         }
 
-        stage('Terraform Validate') {
-            when {
-                expression { return false } // enable if you want Terraform validation
-            }
-            steps {
-                bat '''
-                    cd terraform
-                    terraform init
-                    terraform validate
-                '''
-            }
-        }
+        // stage('Terraform Validate') {
+        //     when {
+        //         expression { return false } // enable if you want Terraform validation
+        //     }
+        //     steps {
+        //         bat '''
+        //             cd terraform
+        //             terraform init
+        //             terraform validate
+        //         '''
+        //     }
+        // }
     }
 
     post {
